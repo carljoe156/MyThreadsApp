@@ -43,10 +43,10 @@ export const dummyUsers: User[] = [
   },
 ];
 
-export const posts: Post[] = [
+export const dummyPosts: Post[] = [
   {
     id: "1",
-    createdAt: "2025-05-01T10:00:00Z",
+    createdAt: "2025-05-13T10:00:00Z",
     content: "Just launched my new portfolio site!",
     user_id: "1",
     user: dummyUsers[0],
@@ -56,7 +56,7 @@ export const posts: Post[] = [
   },
   {
     id: "2",
-    createdAt: "2025-05-01T10:10:00Z",
+    createdAt: "2025-05-14T10:10:00Z",
     content: "Congrats! Looks awesome.",
     user_id: "2",
     user: dummyUsers[1],
@@ -66,7 +66,7 @@ export const posts: Post[] = [
   },
   {
     id: "3",
-    createdAt: "2025-05-01T10:15:00Z",
+    createdAt: "2025-05-14T10:15:00Z",
     content: "Thanks! Took a while but worth it.",
     user_id: "1",
     user: dummyUsers[0],
@@ -76,7 +76,7 @@ export const posts: Post[] = [
   },
   {
     id: "4",
-    createdAt: "2025-05-02T09:00:00Z",
+    createdAt: "2025-05-15T09:00:00Z",
     content: "Why do people still use jQuery?",
     user_id: "3",
     user: dummyUsers[2],
@@ -86,7 +86,7 @@ export const posts: Post[] = [
   },
   {
     id: "5",
-    createdAt: "2025-05-02T09:30:00Z",
+    createdAt: "2025-05-15T10:00:00Z",
     content: "Legacy projects, mostly.",
     user_id: "5",
     user: dummyUsers[4],
@@ -126,7 +126,7 @@ export const posts: Post[] = [
   },
   {
     id: "9",
-    createdAt: "2025-05-05T08:45:00Z",
+    createdAt: "2025-05-10T08:45:00Z",
     content: "Who else is hyped for React 19?",
     user_id: "5",
     user: dummyUsers[4],
@@ -136,7 +136,7 @@ export const posts: Post[] = [
   },
   {
     id: "10",
-    createdAt: "2025-05-05T09:00:00Z",
+    createdAt: "2025-05-10T09:00:00Z",
     content: "Absolutely! So many cool features.",
     user_id: "3",
     user: dummyUsers[2],
