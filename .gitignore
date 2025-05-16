@@ -4,8 +4,8 @@
 .env
 
 # **/supabase/
-# # **/supabase/.branches 
-**/supabase/.temp
+# **/supabase/.branches 
+# **/supabase/.temp
 
 
 # dependencies
