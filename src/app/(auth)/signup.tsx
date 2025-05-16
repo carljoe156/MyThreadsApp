@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,24 @@ export default function SignUpScreen() {
     if (!email || !password) {
       Alert.alert("Please enter an email and password");
       return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.signUp({ email, password });
+
+      if (error) Alert.alert(error.message);
+
+      if (!session)
+        Alert.alert("Please check your inbox for email verification!");
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
