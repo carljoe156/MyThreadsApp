@@ -3,6 +3,11 @@
 
 .env
 
+# **/supabase/
+# # **/supabase/.branches 
+**/supabase/.temp
+
+
 # dependencies
 node_modules/
 
