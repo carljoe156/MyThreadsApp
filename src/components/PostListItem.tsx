@@ -24,7 +24,8 @@ export default function PostListItem({ post, isLastInGroup = true }: Props) {
         {/* User Avatar */}
         <View className="mr-3 items-center gap-2">
           <Image
-            source={{ uri: post.user.image }}
+            // source={{ uri: post.user.image }}
+            source={{ uri: post.user.avatar_url }}
             className="w-12 h-12 rounded-full"
           />
 
@@ -41,7 +42,7 @@ export default function PostListItem({ post, isLastInGroup = true }: Props) {
               {post.user.username}
             </Text>
             <Text className="text-gray-500">
-              {dayjs(post.createdAt).fromNow()}
+              {dayjs(post.created_at).fromNow()}
             </Text>
           </View>
 
@@ -57,9 +58,7 @@ export default function PostListItem({ post, isLastInGroup = true }: Props) {
 
             <Pressable className="flex-row items-center">
               <Ionicons name="chatbubble-outline" size={20} color="#d1d5db" />
-              <Text className="text-gray-300 ml-2">
-                {post.replies?.length ?? 0}
-              </Text>
+              <Text className="text-gray-300 ml-2">{0}</Text>
             </Pressable>
 
             <Pressable className="flex-row items-center">

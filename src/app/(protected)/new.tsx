@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase";
 import { useState } from "react";
 import {
   View,
@@ -8,8 +9,25 @@ import {
   Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "@/providers/AuthProvider";
+
 export default function NewPostScreen() {
   const [text, setText] = useState("");
+
+  const { user } = useAuth();
+
+  const onSumbit = async () => {
+    if (!text || !user) return;
+
+    const { data, error } = await supabase.from("posts").insert({
+      content: text,
+      user_id: user.id,
+    });
+    if (error) {
+      console.error(error);
+    }
+    setText("");
+  };
 
   return (
     <SafeAreaView className="p-4 flex-1">
@@ -30,9 +48,7 @@ export default function NewPostScreen() {
         />
         <View className="mt-auto">
           <Pressable
-            onPress={() => {
-              console.log("post:", text);
-            }}
+            onPress={onSumbit}
             className="bg-white p-3 px-6 self-end rounded-full"
           >
             <Text className="text-black font-bold">Post</Text>
