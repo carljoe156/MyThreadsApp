@@ -10,24 +10,38 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "@/providers/AuthProvider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
+
+const createPost = async (content: string, user_id: string) => {
+  const { data } = await supabase
+    .from("posts")
+    .insert({ content, user_id })
+    .select("*")
+    .throwOnError();
+
+  return data;
+};
 
 export default function NewPostScreen() {
   const [text, setText] = useState("");
 
   const { user } = useAuth();
 
-  const onSumbit = async () => {
-    if (!text || !user) return;
+  const queryClient = useQueryClient();
 
-    const { data, error } = await supabase.from("posts").insert({
-      content: text,
-      user_id: user.id,
-    });
-    if (error) {
-      console.error(error);
-    }
-    setText("");
-  };
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: () => createPost(text, user!.id),
+    onSuccess: (data) => {
+      setText("");
+      router.back();
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+    onError: (error) => {
+      console.error("Error creating post:", error);
+      // Alert.alert("Error", error.message);
+    },
+  });
 
   return (
     <SafeAreaView className="p-4 flex-1">
@@ -46,10 +60,18 @@ export default function NewPostScreen() {
           multiline
           numberOfLines={4}
         />
+
+        {error && (
+          <Text className="text-red-500 text-sm mt-4">{error.message}</Text>
+        )}
+
         <View className="mt-auto">
           <Pressable
-            onPress={onSumbit}
-            className="bg-white p-3 px-6 self-end rounded-full"
+            onPress={() => mutate()}
+            className={`${
+              isPending ? "bg-white/50" : "bg-white"
+            } p-3 px-6 self-end rounded-full`}
+            disabled={isPending}
           >
             <Text className="text-black font-bold">Post</Text>
           </Pressable>
