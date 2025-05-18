@@ -40,7 +40,7 @@ export default function PostDetails({ post }: { post: PostWithUser }) {
         <Text className="text-white">{post.content}</Text>
 
         {/* Interaction Buttons */}
-        <View className="flex-row gap-4 bg-red-500">
+        <View className="flex-row gap-4">
           <Pressable className="flex-row items-center">
             <Ionicons name="heart-outline" size={20} color="#d1d5db" />
             <Text className="text-gray-300 ml-2">0</Text>
