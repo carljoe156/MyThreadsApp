@@ -3,7 +3,6 @@ import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { router } from "expo-router";
 import { createPost } from "@/services/posts";
 
 export default function PostReplyInput({ postId }: { postId: string }) {
@@ -18,7 +17,7 @@ export default function PostReplyInput({ postId }: { postId: string }) {
       createPost({ content: text, user_id: user!.id, parent_id: postId }),
     onSuccess: (data) => {
       setText("");
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["posts", postId, "replies"] });
     },
     onError: (error) => {
       console.error("Error creating post:", error);
