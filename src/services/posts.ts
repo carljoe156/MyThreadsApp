@@ -20,6 +20,7 @@ export const createPost = async (newPost: PostInput) => {
     .throwOnError();
 
   return data;
+  posts_parent_id_fkey;
 };
 
 export const getPostById = async (id: string) => {

@@ -16,17 +16,30 @@ type PostWithUser = Tables<"posts"> & {
   }[];
 };
 
-export default function PostListItem({ post }: { post: PostWithUser }) {
+export default function PostListItem({
+  post,
+  isLastInGroup = true,
+}: {
+  post: PostWithUser;
+  isLastInGroup?: boolean;
+}) {
   return (
     <Link href={`/posts/${post.id}`} asChild>
-      <Pressable className="flex-row p-4 $ border-b border-gray-800/70">
+      <Pressable
+        className={`flex-row p-4 ${
+          isLastInGroup ? "border-b border-gray-800/70" : ""
+        }`}
+      >
         {/* User Avatar */}
-        <View className="mr-3 ">
+        <View className="mr-3 itmes-center gap-2">
           <Image
             // source={{ uri: post.user.image }}
             source={{ uri: post.user.avatar_url }}
             className="w-12 h-12 rounded-full"
           />
+          {isLastInGroup && (
+            <View className=" w-[3px] flex-1 rounded-full bg-neutral-700 translate-y-2 scale-125" />
+          )}
         </View>
 
         {/* Content */}
