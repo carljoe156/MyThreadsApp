@@ -5,33 +5,28 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import { Post } from "@/types";
+import { Tables } from "@/types/database.types";
 
 dayjs.extend(relativeTime);
 
-type Props = {
-  post: Post;
-  isLastInGroup?: boolean;
+type PostWithUser = Tables<"posts"> & {
+  user: Tables<"profiles">;
+  replies: {
+    count: number;
+  }[];
 };
 
-export default function PostListItem({ post, isLastInGroup = true }: Props) {
+export default function PostListItem({ post }: { post: PostWithUser }) {
   return (
     <Link href={`/posts/${post.id}`} asChild>
-      <Pressable
-        className={`flex-row p-4 ${
-          isLastInGroup ? "border-b border-gray-800/70" : ""
-        }`}
-      >
+      <Pressable className="flex-row p-4 $ border-b border-gray-800/70">
         {/* User Avatar */}
-        <View className="mr-3 items-center gap-2">
+        <View className="mr-3 ">
           <Image
             // source={{ uri: post.user.image }}
             source={{ uri: post.user.avatar_url }}
             className="w-12 h-12 rounded-full"
           />
-
-          {!isLastInGroup && (
-            <View className="w-[3px] flex-1 rounded-full bg-neutral-700 translate-y-2" />
-          )}
         </View>
 
         {/* Content */}
@@ -58,7 +53,9 @@ export default function PostListItem({ post, isLastInGroup = true }: Props) {
 
             <Pressable className="flex-row items-center">
               <Ionicons name="chatbubble-outline" size={20} color="#d1d5db" />
-              <Text className="text-gray-300 ml-2">{0}</Text>
+              <Text className="text-gray-300 ml-2">
+                {post?.replies?.[0].count || 0}
+              </Text>
             </Pressable>
 
             <Pressable className="flex-row items-center">

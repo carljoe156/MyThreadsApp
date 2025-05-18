@@ -3,6 +3,15 @@ import { TablesInsert } from "@/types/database.types";
 
 type PostInput = TablesInsert<"posts">;
 
+export const fetchPosts = async () => {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*, user:profiles(*), replies:posts(count)")
+    .throwOnError();
+
+  return data;
+};
+
 export const createPost = async (newPost: PostInput) => {
   const { data } = await supabase
     .from("posts")
@@ -18,7 +27,7 @@ export const getPostById = async (id: string) => {
 
   const { data } = await supabase
     .from("posts")
-    .select("*, user:profiles(*)")
+    .select("*, user:profiles(*), replies:posts(count)")
     .eq("id", id)
     .single()
     .throwOnError();
@@ -29,7 +38,7 @@ export const getPostById = async (id: string) => {
 export const getPostsReplies = async (id: string) => {
   const { data } = await supabase
     .from("posts")
-    .select("*, user:profiles(*)")
+    .select("*, user:profiles(*) replies:posts(count)")
     .eq("parent_id", id)
     .throwOnError();
 
