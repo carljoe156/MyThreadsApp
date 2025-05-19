@@ -36,6 +36,19 @@ export const getPostById = async (id: string) => {
   return data;
 };
 
+export const getPostsByUserId = async (id: string) => {
+  console.log("Fetching post with id:", id);
+
+  const { data } = await supabase
+    .from("posts")
+    .select("*, user:profiles(*), replies:posts(count)")
+    .eq("user_id", id)
+    .order("created_at", { ascending: false })
+    .throwOnError();
+
+  return data;
+};
+
 export const getPostsReplies = async (id: string) => {
   const { data } = await supabase
     .from("posts")
