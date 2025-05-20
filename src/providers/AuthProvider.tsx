@@ -3,10 +3,14 @@ import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
+import { getProfileById } from "@/services/profiles";
+import { useQuery } from "@tanstack/react-query";
+import { Tables } from "@/types/database.types";
 
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
+  profile: Tables<"profiles"> | null;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -28,6 +32,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: () => getProfileById(user!.id),
+  });
 
   useEffect(() => {
     // Get initial session
@@ -66,7 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, profile }}>
       {children}
     </AuthContext.Provider>
   );

@@ -13,16 +13,18 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "@/providers/AuthProvider";
 import { Entypo } from "@expo/vector-icons";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { createPost } from "@/services/posts";
 import * as ImagePicker from "expo-image-picker";
+import { getProfileById } from "@/services/profiles";
+import SupabaseImage from "@/components/SupabaseImage";
 
 export default function NewPostScreen() {
   const [text, setText] = useState("");
   const [image, setImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
 
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -90,36 +92,53 @@ export default function NewPostScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 140 : 0}
       >
-        <Text className="text-white text-lg font-bold">username</Text>
-
-        <TextInput
-          value={text}
-          onChangeText={setText}
-          placeholder="What is on your mind?"
-          placeholderTextColor="gray"
-          className="text-white text-lg"
-          multiline
-          numberOfLines={4}
-        />
-        {image && (
-          // <View className="mt-4">
-          <Image
-            source={{ uri: image.uri }}
-            className="w-full rounded-lg my-4"
-            style={{ aspectRatio: image.width / image.height }}
-            // className="w-full h-4/6 rounded-lg my-4"
-            // resizeMode="cover"
+        <View className="flex-row gap-4 ">
+          <SupabaseImage
+            bucket="avatars"
+            path={profile?.avatar_url ?? ""}
+            className="w-20 h-20 rounded-full"
+            transform={{ width: 100, height: 100 }}
           />
-          // </View>
-        )}
+          <View>
+            {profile && (
+              <Text className="text-white text-lg font-bold">
+                {profile.username}
+              </Text>
+            )}
 
-        {error && (
-          <Text className="text-red-500 text-sm mt-4">{error.message}</Text>
-        )}
+            <TextInput
+              value={text}
+              onChangeText={setText}
+              placeholder="What is on your mind?"
+              placeholderTextColor="gray"
+              className="text-white text-lg"
+              multiline
+              numberOfLines={4}
+            />
+            {image && (
+              // <View className="mt-4">
+              <Image
+                source={{ uri: image.uri }}
+                className="w-full rounded-lg my-4"
+                style={{ aspectRatio: image.width / image.height }}
+                // className="w-full h-4/6 rounded-lg my-4"
+                // resizeMode="cover"
+              />
+              // </View>
+            )}
 
-        <View>
-          <View className="flex-row items-center gap-2 mt-4">
-            <Entypo onPress={pickImage} name="images" size={20} color="gray" />
+            {error && (
+              <Text className="text-red-500 text-sm mt-4">{error.message}</Text>
+            )}
+
+            <View className="flex-row items-center gap-2 mt-4">
+              <Entypo
+                onPress={pickImage}
+                name="images"
+                size={20}
+                color="gray"
+              />
+            </View>
           </View>
         </View>
 
