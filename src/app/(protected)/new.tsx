@@ -28,14 +28,14 @@ export default function NewPostScreen() {
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
-      let imagePath: null;
+      let imagePath: string | null = null;
       if (image) {
         imagePath = await uploadImage();
       }
       return createPost({
         content: text,
         user_id: user!.id,
-        images: [imagePath],
+        images: imagePath ? [imagePath] : [],
       });
     },
     onSuccess: (data) => {
@@ -67,7 +67,7 @@ export default function NewPostScreen() {
   };
 
   const uploadImage = async () => {
-    if (!image) return;
+    if (!image) return null;
     const arraybuffer = await fetch(image.uri).then((res) => res.arrayBuffer());
 
     const fileExt = image.uri?.split(".").pop()?.toLowerCase() ?? "jpeg";

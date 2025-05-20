@@ -1,17 +1,15 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
-import { getProfileById } from "@/services/profiles";
-import { useQueryClient } from "@tanstack/react-query";
-import { updateProfile } from "@/services/profiles";
-import { useMutation } from "@tanstack/react-query";
+import { getProfileById, updateProfile } from "@/services/profiles";
 import { router } from "expo-router";
-// import { avatarUrl } from "@/lib/supabase";
+import UserAvatarPicker from "@/components/UserAvatarPicker";
 
 export default function ProfileEditScreen() {
   const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -30,6 +28,7 @@ export default function ProfileEditScreen() {
       updateProfile(user!.id, {
         full_name: fullName,
         bio,
+        avatar_url: avatarUrl,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile", user?.id] });
@@ -40,10 +39,15 @@ export default function ProfileEditScreen() {
   useEffect(() => {
     setFullName(profile?.full_name);
     setBio(profile?.bio);
+    setAvatarUrl(profile?.avatar_url);
   }, [profile?.id]);
 
   return (
     <View className="flex-1 p-4 gap-4">
+      <UserAvatarPicker
+        currentAvatar={profile?.avatar_url}
+        onUpload={setAvatarUrl}
+      />
       <TextInput
         value={fullName}
         onChangeText={setFullName}

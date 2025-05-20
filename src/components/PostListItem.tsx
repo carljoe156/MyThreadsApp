@@ -3,10 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
-import { Post } from "@/types";
+// Removed unused import as 'Post' is not exported from "@/types"
 import { Tables } from "@/types/database.types";
 import { supabase } from "@/lib/supabase";
+import SupabaseImage from "./SupabaseImage";
 
 dayjs.extend(relativeTime);
 
@@ -33,10 +33,11 @@ export default function PostListItem({
       >
         {/* User Avatar */}
         <View className="mr-3 itmes-center gap-2">
-          <Image
-            // source={{ uri: post.user.image }}
-            source={{ uri: post.user.avatar_url }}
+          <SupabaseImage
+            bucket="avatars"
+            path={post.user.avatar_url || ""}
             className="w-12 h-12 rounded-full"
+            transform={{ width: 50, height: 50 }}
           />
           {isLastInGroup && (
             <View className=" w-[3px] flex-1 rounded-full bg-neutral-700 translate-y-2" />
@@ -58,7 +59,8 @@ export default function PostListItem({
           {/* Post Content */}
           <Text className="text-white mt-2 mb-3">{post.content}</Text>
 
-          {/* {post.images && (
+          {/* Post Images */}
+          {post.images && (
             <View className="flex-row gap-2 mt-2">
               {post.images.map((image) => (
                 <SupabaseImage
@@ -67,19 +69,6 @@ export default function PostListItem({
                   path={image}
                   className="w-full aspect-square rounded-lg"
                   transform={{ width: 500, height: 500 }}
-                />
-              ))}
-            </View> */}
-          {post.images && (
-            <View className="flex-row gap-2 mt-2">
-              {post.images.map((image) => (
-                <Image
-                  key={image}
-                  source={{
-                    uri: supabase.storage.from("media").getPublicUrl(image).data
-                      .publicUrl,
-                  }}
-                  className="w-full aspect-square rounded-lg"
                 />
               ))}
             </View>
