@@ -16,6 +16,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
+  profile: null, // was missing in the original code
 });
 
 export const useAuth = () => {
