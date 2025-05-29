@@ -1,15 +1,21 @@
-import { ActivityIndicator, Text, View } from "react-native";
+import { useState } from "react";
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { getPostsByUserId } from "@/services/posts";
-import { FlatList } from "react-native";
 import PostListItem from "@/components/PostListItem";
-import { getProfileById } from "@/services/profiles";
 import ProfileHeader from "@/components/ProfileHeader";
 
 export default function ProfileScreen() {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<"posts" | "media">("posts");
 
   const {
     data: posts,
@@ -20,32 +26,72 @@ export default function ProfileScreen() {
     queryFn: () => getPostsByUserId(user!.id),
   });
 
+  // Filter posts based on active tab
+  const getFilteredPosts = () => {
+    if (!posts) return [];
+
+    if (activeTab === "posts") {
+      return posts;
+    } else {
+      // Filter for posts that have images
+      return posts.filter(
+        (post) =>
+          post.image || post.images?.length > 0 || post.media?.length > 0
+      );
+    }
+  };
+
+  const filteredPosts = getFilteredPosts();
+
   if (isLoading) return <ActivityIndicator />;
   if (error) {
     return <Text className="text-white">Error: {error.message}</Text>;
   }
 
   return (
-    <View className="flex-1 justify-center">
+    <View className="flex-1">
       <FlatList
-        data={posts}
+        data={filteredPosts}
         renderItem={({ item }) => <PostListItem post={item} />}
         ListHeaderComponent={() => (
           <>
             <ProfileHeader />
-            <Text className="text-white text-lg font-bold mt-4 m-2">
-              Threads
-            </Text>
+            <View className="flex-row justify-center mt-4 border-b border-gray-700 pb-2">
+              <Pressable onPress={() => setActiveTab("posts")}>
+                <Text
+                  className={`text-lg font-bold mx-4 ${
+                    activeTab === "posts"
+                      ? "text-white border-b-2 border-white"
+                      : "text-gray-400"
+                  }`}
+                >
+                  Posts
+                </Text>
+              </Pressable>
+              <Pressable onPress={() => setActiveTab("media")}>
+                <Text
+                  className={`text-lg font-bold mx-4 ${
+                    activeTab === "media"
+                      ? "text-white border-b-2 border-white"
+                      : "text-gray-400"
+                  }`}
+                >
+                  Media
+                </Text>
+              </Pressable>
+            </View>
           </>
         )}
+        ListEmptyComponent={() =>
+          activeTab === "media" ? (
+            <View className="flex-1 justify-center items-center p-8">
+              <Text className="text-gray-400 text-center">
+                No media posts found
+              </Text>
+            </View>
+          ) : null
+        }
       />
-
-      {/* <Text
-        onPress={() => supabase.auth.signOut()}
-        className="text-2xl font-bold text-white"
-      >
-        Sign Out
-      </Text> */}
     </View>
   );
 }
