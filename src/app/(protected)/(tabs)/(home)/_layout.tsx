@@ -6,7 +6,7 @@ export default function HomeLayout() {
       <Stack.Screen
         name="posts/[id]"
         options={{
-          title: "MyThreadsApp",
+          title: "Post",
           headerBackButtonDisplayMode: "generic",
         }}
       />
