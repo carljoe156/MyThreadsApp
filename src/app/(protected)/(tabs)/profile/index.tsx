@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -15,7 +15,9 @@ import ProfileHeader from "@/components/ProfileHeader";
 
 export default function ProfileScreen() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<"posts" | "media">("posts");
+  const [activeTab, setActiveTab] = useState<"posts" | "media" | "replies">(
+    "posts"
+  );
 
   const {
     data: posts,
@@ -32,12 +34,15 @@ export default function ProfileScreen() {
 
     if (activeTab === "posts") {
       return posts;
-    } else {
+    } else if (activeTab === "media") {
       // Filter for posts that have images
       return posts.filter(
         (post) =>
           post.image || post.images?.length > 0 || post.media?.length > 0
       );
+    } else if (activeTab === "replies") {
+      // Filter for posts that have replies
+      return posts.filter((post) => post.replies?.length > 0);
     }
   };
 
@@ -79,6 +84,17 @@ export default function ProfileScreen() {
                   Media
                 </Text>
               </Pressable>
+              <Pressable onPress={() => setActiveTab("replies")}>
+                <Text
+                  className={`text-lg font-bold mx-4 ${
+                    activeTab === "replies"
+                      ? "text-white border-b-2 border-white"
+                      : "text-gray-400"
+                  }`}
+                >
+                  Replies
+                </Text>
+              </Pressable>
             </View>
           </>
         )}
@@ -87,6 +103,12 @@ export default function ProfileScreen() {
             <View className="flex-1 justify-center items-center p-8">
               <Text className="text-gray-400 text-center">
                 No media posts found
+              </Text>
+            </View>
+          ) : activeTab === "replies" ? (
+            <View className="flex-1 justify-center items-center p-8">
+              <Text className="text-gray-400 text-center">
+                No replies found
               </Text>
             </View>
           ) : null
