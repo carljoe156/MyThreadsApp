@@ -9,6 +9,7 @@ import {
   Platform,
   Image,
   Alert,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "@/providers/AuthProvider";
@@ -54,8 +55,8 @@ export default function NewPostScreen() {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      // mediaTypes: ["images", "videos"],
-      mediaTypes: ["images"],
+      mediaTypes: ["images", "videos"],
+      // mediaTypes: ["images"],
       allowsEditing: true,
       // aspect: [4, 3],
       quality: 1,
@@ -92,55 +93,72 @@ export default function NewPostScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 140 : 0}
       >
-        <View className="flex-row gap-4 ">
-          <SupabaseImage
-            bucket="avatars"
-            path={profile?.avatar_url ?? ""}
-            className="w-20 h-20 rounded-full"
-            transform={{ width: 100, height: 100 }}
-          />
-          <View>
-            {profile && (
-              <Text className="text-white text-lg font-bold">
-                {profile.username}
-              </Text>
-            )}
-
-            <TextInput
-              value={text}
-              onChangeText={setText}
-              placeholder="What is on your mind?"
-              placeholderTextColor="gray"
-              className="text-white text-lg"
-              multiline
-              numberOfLines={4}
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View className="flex-row gap-4 ">
+            <SupabaseImage
+              bucket="avatars"
+              path={profile?.avatar_url ?? ""}
+              className="w-14 h-14 rounded-full"
+              transform={{ width: 100, height: 100 }}
             />
-            {image && (
-              // <View className="mt-4">
-              <Image
-                source={{ uri: image.uri }}
-                className="w-full rounded-lg my-4"
-                style={{ aspectRatio: image.width / image.height }}
-                // className="w-full h-4/6 rounded-lg my-4"
-                // resizeMode="cover"
-              />
-              // </View>
-            )}
+            <View>
+              {profile && (
+                <Text className="text-white text-lg font-bold">
+                  {profile.username}
+                </Text>
+              )}
 
-            {error && (
-              <Text className="text-red-500 text-sm mt-4">{error.message}</Text>
-            )}
-
-            <View className="flex-row items-center gap-2 mt-4">
-              <Entypo
-                onPress={pickImage}
-                name="images"
-                size={20}
-                color="gray"
+              <TextInput
+                value={text}
+                onChangeText={setText}
+                placeholder="What is on your mind?"
+                placeholderTextColor="gray"
+                className="text-white text-lg"
+                multiline
+                numberOfLines={4}
               />
+              {/* {image && (
+                // <View className="mt-4">
+                <Image
+                  source={{ uri: image.uri }}
+                  className="w-full rounded-lg my-4"
+                  style={{ aspectRatio: image.width / image.height }}
+                  // className="w-full h-4/6 rounded-lg my-4"
+                  // resizeMode="cover"
+                />
+                // </View>
+              )} */}
+              {image && (
+                <View className="mt-4 items-center">
+                  <Image
+                    source={{ uri: image.uri }}
+                    className="rounded-lg"
+                    style={{
+                      width: "100%",
+                      maxWidth: 300, // Limit the width for larger images
+                      aspectRatio: image.width / image.height,
+                    }}
+                  />
+                </View>
+              )}
+
+              {error && (
+                <Text className="text-red-500 text-sm mt-4">
+                  {error.message}
+                </Text>
+              )}
+
+              <View className="flex-row items-center gap-2 mt-4">
+                <Entypo
+                  onPress={pickImage}
+                  name="images"
+                  size={20}
+                  color="gray"
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
 
         <View className="mt-auto">
           <Pressable
