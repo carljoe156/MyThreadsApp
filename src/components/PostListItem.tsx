@@ -40,7 +40,7 @@ export default function PostListItem({
             transform={{ width: 50, height: 50 }}
           />
           {isLastInGroup && (
-            <View className=" w-[3px] flex-1 rounded-full bg-neutral-700 translate-y-2" />
+            <View className=" w-[3px] flex-1 rounded-full bg-neutral-700 translate-x-6" />
           )}
         </View>
 
