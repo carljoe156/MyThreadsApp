@@ -1,9 +1,11 @@
 import { View, Text, ActivityIndicator, Image, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import { getProfileById } from "@/services/profiles";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import SupabaseImage from "./SupabaseImage";
+import React from "react";
 
 export default function ProfileHeader() {
   const { user } = useAuth();
@@ -21,7 +23,7 @@ export default function ProfileHeader() {
   if (error) {
     return <Text className="text-white">Error: {error.message}</Text>;
   }
-  console.log(JSON.stringify(profile, null, 2));
+  // console.log(JSON.stringify(profile, null, 2));
 
   return (
     <View className="p-4 gap-4">
@@ -38,6 +40,12 @@ export default function ProfileHeader() {
           className="w-20 h-20 rounded-full"
           transform={{ width: 500, height: 500 }}
         />
+        <Pressable
+          onPress={() => router.push("/profile/settings")}
+          className="p-2"
+        >
+          <Ionicons name="settings-outline" size={24} color="white" />
+        </Pressable>
       </View>
       <Text className="text-neutral-200 leading-snug">{profile?.bio}</Text>
 
