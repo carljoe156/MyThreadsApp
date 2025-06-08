@@ -48,17 +48,19 @@ export default function ProfileEditScreen() {
         currentAvatar={profile?.avatar_url}
         onUpload={setAvatarUrl}
       />
+      <Text className="text-gray-500 font-bold mb-2">Display name</Text>
       <TextInput
         value={fullName}
         onChangeText={setFullName}
         placeholder="Full Name"
-        className="text-white border-2 border-neutral-800 rounded-md p-4"
+        className="text-white border-2 border-neutral-800 rounded-md p-2"
       />
+      <Text className="text-gray-500 font-bold mt-4 mb-2">Bio</Text>
       <TextInput
         value={bio}
         onChangeText={setBio}
         placeholder="bio"
-        className="text-white border-2 border-neutral-800 rounded-md p-4"
+        className="text-white border-2 border-neutral-800 rounded-md p-2"
         multiline
         numberOfLines={5}
       />
