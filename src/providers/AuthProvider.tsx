@@ -11,12 +11,14 @@ type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
   profile: Tables<"profiles"> | null;
+  logout: () => Promise<void>; // Added logout function
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
-  profile: null, // was missing in the original code
+  profile: null,
+  logout: async () => {}, // Default implementation
 });
 
 export const useAuth = () => {
@@ -67,6 +69,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, []);
 
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center">
@@ -76,7 +84,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, profile }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, profile, logout }}>
       {children}
     </AuthContext.Provider>
   );
