@@ -38,7 +38,6 @@ export default function PostDetailsScreen() {
     return <Text className="text-white ">{error.message}</Text>;
   }
 
-  //   console.log(data);
 
   return (
     <View className="flex-1 ">
