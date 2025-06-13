@@ -38,7 +38,6 @@ export default function PostDetailsScreen() {
     return <Text className="text-white ">{error.message}</Text>;
   }
 
-
   return (
     <View className="flex-1 ">
       <FlatList
@@ -49,7 +48,7 @@ export default function PostDetailsScreen() {
             {parent && <PostListItem post={parent} isLastInGroup={false} />}
             <PostDetails post={post} />
             <Text className="text-white lg: font-bold p-4 border-neutral-800">
-              Replies
+              Replies....
             </Text>
           </>
         }
