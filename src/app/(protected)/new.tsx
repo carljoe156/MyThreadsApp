@@ -117,17 +117,6 @@ export default function NewPostScreen() {
                 multiline
                 numberOfLines={4}
               />
-              {/* {image && (
-                // <View className="mt-4">
-                <Image
-                  source={{ uri: image.uri }}
-                  className="w-full rounded-lg my-4"
-                  style={{ aspectRatio: image.width / image.height }}
-                  // className="w-full h-4/6 rounded-lg my-4"
-                  // resizeMode="cover"
-                />
-                // </View>
-              )} */}
               {image && (
                 <View className="mt-4 items-center">
                   <Image
