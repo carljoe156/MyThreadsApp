@@ -50,7 +50,7 @@ export default function SignUpScreen() {
         <View className="gap-4">
           <View>
             <Text className="text-sm font-medium text-gray-300 mb-1">
-              Email
+              Email:
             </Text>
             <TextInput
               className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500"
@@ -65,7 +65,7 @@ export default function SignUpScreen() {
 
           <View>
             <Text className="text-sm font-medium text-gray-300 mb-1">
-              Password
+              Password:
             </Text>
             <TextInput
               className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500"
