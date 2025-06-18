@@ -3,7 +3,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
 // import { Post } from "@/types";
 import { Tables } from "@/types/database.types";
 import { supabase } from "@/lib/supabase";
