@@ -11,14 +11,14 @@ type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
   profile: Tables<"profiles"> | null;
-  logout: () => Promise<void>; // Added logout function
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
   profile: null,
-  logout: async () => {}, // Default implementation
+  logout: async () => {},
 });
 
 export const useAuth = () => {
