@@ -30,7 +30,7 @@ export default function LoginScreen() {
       });
 
       if (error) {
-        console.error("Supabase error:", error); // Log the full error object
+        console.error("Supabase error:", error);
         Alert.alert("Error", error.message || "An unknown error occurred");
         return;
       }
