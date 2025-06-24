@@ -1,6 +1,6 @@
 import { ActivityIndicator, FlatList, Text } from "react-native";
 import PostListItem from "@/components/PostListItem";
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase";
 import { fetchPosts } from "@/services/posts";
 import { useQuery } from "@tanstack/react-query";
 
