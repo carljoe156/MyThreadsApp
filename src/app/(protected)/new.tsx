@@ -157,7 +157,7 @@ export default function NewPostScreen() {
             } p-3 px-6 self-end rounded-full`}
             disabled={isPending}
           >
-            <Text className="text-black font-bold">Post</Text>
+            <Text className="text-black font-bold">Post.</Text>
           </Pressable>
         </View>
       </KeyboardAvoidingView>
