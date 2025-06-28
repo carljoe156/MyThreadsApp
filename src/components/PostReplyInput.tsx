@@ -19,6 +19,7 @@ export default function PostReplyInput({ postId }: { postId: string }) {
       setText("");
       //   queryClient.invalidateQueries({ queryKey: ["posts", postId, "replies"] });
       //   queryClient.invalidateQueries({ queryKey: ["posts", postId] });
+
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
     onError: (error) => {
