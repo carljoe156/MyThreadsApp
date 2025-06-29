@@ -21,7 +21,7 @@ export default function UserAvatarPicker({
         allowsMultipleSelection: false, // Can only select one image
         allowsEditing: true, // Allows the user to crop / rotate their photo before uploading it
         quality: 1,
-        exif: false, // We don't want nor need that data.
+        exif: false,
       });
       if (result.canceled || !result.assets || result.assets.length === 0) {
         console.log("User cancelled image picker.");
@@ -30,7 +30,7 @@ export default function UserAvatarPicker({
       const image = result.assets[0];
       console.log("Got image", image);
       if (!image.uri) {
-        throw new Error("No image uri!"); // Realistically, this should never happen, but just in case...
+        throw new Error("No image uri!");
       }
       const arraybuffer = await fetch(image.uri).then((res) =>
         res.arrayBuffer()
