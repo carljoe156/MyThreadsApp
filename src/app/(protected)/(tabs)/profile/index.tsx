@@ -102,13 +102,13 @@ export default function ProfileScreen() {
           activeTab === "media" ? (
             <View className="flex-1 justify-center items-center p-8">
               <Text className="text-gray-400 text-center">
-                No media posts found
+                No media posts found.
               </Text>
             </View>
           ) : activeTab === "replies" ? (
             <View className="flex-1 justify-center items-center p-8">
               <Text className="text-gray-400 text-center">
-                No replies found
+                No replies found.
               </Text>
             </View>
           ) : null
