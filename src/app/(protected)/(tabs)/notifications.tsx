@@ -11,14 +11,24 @@ export default function NotificationsScreen() {
     activity: [
       { id: 1, message: "You have a new follower!" },
       { id: 2, message: "Your post was liked!" },
+      { id: 3, message: "You were mentioned in a comment!" },
+      { id: 4, message: "Your post was shared!" },
     ],
     all: [
       { id: 3, message: "You were mentioned in a comment!" },
       { id: 4, message: "Your post was shared!" },
+      { id: 1, message: "You have a new follower!" },
+      { id: 2, message: "Your post was liked!" },
+      { id: 5, message: "@user mentioned you in a post!" },
+      { id: 6, message: "@anotheruser replied to your comment!" },
     ],
     mentions: [
       { id: 5, message: "@user mentioned you in a post!" },
       { id: 6, message: "@anotheruser replied to your comment!" },
+      { id: 7, message: "@yetanotheruser tagged you in a photo!" },
+      { id: 8, message: "@someuser commented on your post!" },
+      { id: 9, message: "@user123 mentioned you in a story!" },
+      { id: 10, message: "@user456 replied to your story!" },
     ],
   };
 
