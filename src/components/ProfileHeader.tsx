@@ -28,7 +28,7 @@ export default function ProfileHeader() {
   return (
     <View className="p-4 gap-4">
       <View className="flex-row items-center justify-between gap-2">
-        <View className="gap-1">
+        <View className="gap-1 py-6 ">
           <Text className="text-white text-2xl font-bold">
             {profile?.full_name}
           </Text>
