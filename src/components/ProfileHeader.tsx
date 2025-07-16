@@ -52,12 +52,12 @@ export default function ProfileHeader() {
       <View>
         <Link href="/profile/edit" asChild>
           <Pressable className="flex-1 py-2 rounded-lg border-2 border-neutral-800">
-            <Text className="text-center text-neutral-200">Edit Profile</Text>
+            <Text className="text-center text-neutral-200">Edit Profile.</Text>
           </Pressable>
         </Link>
 
         <Pressable className="flex-1 py-2 rounded-lg border-2 border-neutral-800">
-          <Text className="text-center text-neutral-200">Share Profile</Text>
+          <Text className="text-center text-neutral-200">Share Profile.</Text>
         </Pressable>
       </View>
     </View>
