@@ -53,7 +53,7 @@ export default function SignUpScreen() {
               Email:
             </Text>
             <TextInput
-              className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:border-blue-500"
+              className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:border-gray-500"
               placeholder="Enter your email"
               placeholderTextColor="#6B7280"
               keyboardType="email-address"
@@ -68,7 +68,7 @@ export default function SignUpScreen() {
               Password:
             </Text>
             <TextInput
-              className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:border-blue-500"
+              className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:border-gray-500"
               placeholder="Enter your password"
               placeholderTextColor="#6B7280"
               secureTextEntry
