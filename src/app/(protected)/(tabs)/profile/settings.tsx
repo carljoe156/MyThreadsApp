@@ -13,25 +13,25 @@ export default function SettingsScreen() {
       {/* Account Settings */}
       <Pressable className="flex-row items-center mb-4">
         <Ionicons name="person-outline" size={24} color="white" />
-        <Text className="text-white text-lg ml-4">Account Settings</Text>
+        <Text className="text-white text-lg ml-4">Account Settings.</Text>
       </Pressable>
 
       {/* Notifications */}
       <Pressable className="flex-row items-center mb-4">
         <Ionicons name="notifications-outline" size={24} color="white" />
-        <Text className="text-white text-lg ml-4">Notifications</Text>
+        <Text className="text-white text-lg ml-4">Notifications.</Text>
       </Pressable>
 
       {/* Privacy */}
       <Pressable className="flex-row items-center mb-4">
         <Ionicons name="lock-closed-outline" size={24} color="white" />
-        <Text className="text-white text-lg ml-4">Privacy</Text>
+        <Text className="text-white text-lg ml-4">Privacy.</Text>
       </Pressable>
 
       {/* Help */}
       <Pressable className="flex-row items-center mb-4">
         <Ionicons name="help-circle-outline" size={24} color="white" />
-        <Text className="text-white text-lg ml-4">Help</Text>
+        <Text className="text-white text-lg ml-4">Help.</Text>
       </Pressable>
 
       {/* Logout Option */}
