@@ -16,8 +16,8 @@ export default function ProfileEditScreen() {
 
   const {
     data: profile,
-    isLoading,
-    error,
+    // isLoading,
+    // error,
   } = useQuery({
     queryKey: ["profile", user?.id],
     queryFn: () => getProfileById(user!.id),
