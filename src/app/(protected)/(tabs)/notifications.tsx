@@ -89,7 +89,7 @@ export default function NotificationsScreen() {
         ListEmptyComponent={() => (
           <View className="flex-1 justify-center items-center p-8">
             <Text className="text-gray-400 text-center">
-              No notifications found
+              No notifications found!
             </Text>
           </View>
         )}
